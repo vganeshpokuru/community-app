@@ -645,6 +645,18 @@
                         get: {method: 'GET', params: {}},
                         save: {method: 'POST', params: {}},
                         delete: {method: 'DELETE', params: {}}
+                    }),
+                    mpesaVerifyResource: defineResource(apiVer + "/mpesatransactions/verify",{},{
+                        verify: {method: 'POST',params:{}}
+                    }),
+                    mpesaMiniStatementResource: defineResource(apiVer + "/mpesatransactions/ministatement",{},{
+                        getMiniStatement: {method: 'POST',params:{}, isArray : true}
+                    }),
+                    mpesaBalanceResource: defineResource(apiVer + "/mpesatransactions/balance",{},{
+                        getBalance: {method: 'POST',params:{}}
+                    }),
+                    mpesaTransactionResource: defineResource(apiVer + "/mpesatransactions/transaction",{},{
+                        doTransaction: {method: 'POST',params:{}}
                     })
                 };
             }];

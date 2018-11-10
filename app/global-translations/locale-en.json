@@ -2521,6 +2521,7 @@
     "label.view.taxcomponent" : "Define Tax components",
     "label.view.taxgroup" : "Define Tax Groups",
     "label.view.smscampaigns" : "Define SMS Campaigns for Organization",
+    "label.view.mpesa":"MPESA management",
 
     "#Enumeration & Error Messages": "..",
     "validation.msg.currencies.currencies.cannot.be.empty": "You must select at least one currency that is 'allowed' for your organization.",
@@ -3098,6 +3099,7 @@
     "label.anchor.editrecurringdepositproduct":"Edit Recurring Deposit Product",
     "label.anchor.createrecurringdepositproduct":"Create Recurring Deposit Product",
     "label.anchor.smscampaings":"SMS Campaigns",
+    "label.anchor.mpesa":"MPESA",
     "label.anchor.createcampaign": "Create Campaign",
 
     "#Inputs": "..",

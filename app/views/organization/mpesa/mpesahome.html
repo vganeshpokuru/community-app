@@ -1,0 +1,142 @@
+<div class="content-container" ng-controller="MpesaHomeController">
+    <ul class="breadcrumb">
+        <li><a href="#/organization">Organisation</a></li>
+        <li class="active">Mpesa Home</li>
+    </ul>
+    <div class="card">
+        <div class="content">
+            <div class="toolbar">
+                <h4>MPESA HOME</h4>
+            </div>
+            <br/>
+            <form name="mpesaform" novalidate="" class="form-horizontal" ng-controller="MpesaHomeController">
+                <api-validate></api-validate>
+                <fieldset>
+                    <div ng-if="!isWalletNumberVerified && !proceedToBankTransaction">
+                    <label class="control-label col-sm-2">Enter Mpesa Wallet Number</label>
+                    <div class="col-sm-3">
+                        <input type="password" id = "walletnumber" ng-model="formdata.walletNumber" class = "form-control">
+                    </div>
+                    <button type = "button" id = "checkwalletnumber" ng-click="verifympesanumber()" has-permission='VALIDATE_MPESA'>Check</button>
+                    </div>
+                    <div ng-if="isWalletNumberVerified && !proceedToBankTransaction">
+                        <button type = "button" id = "checkministatement" ng-click="getMpesaStatement()" has-permission='READ_MPESAMINISTATEMENT'>View Mini Statement</button>
+                        <table border="3">
+                        <tr>
+                            <td>Response Code</td>
+                            <td>Response Message</td>
+                            <td>Transaction Type</td>
+                            <td>Wallet Account</td>
+                            <td>Amount</td>
+                            <td>Reference</td>
+                            <td>Provider</td>
+                            <td>Beneficiary Account</td>
+                            <td>Beneficiary Details</td>
+                            <td>Transaction Date</td>
+                        </tr>
+                        <tr ng-repeat="transaction in ministatement">
+                            <td>{{transaction.responseCode}}</td>
+                            <td>{{transaction.responseMessage}}</td>
+                            <td>{{transaction.transactionType}}</td>
+                            <td>{{transaction.walletAccount}}</td>
+                            <td>{{transaction.amount}}</td>
+                            <td>{{transaction.reference}}</td>
+                            <td>{{transaction.provider}}</td>
+                            <td>{{transaction.beneficiaryAccount}}</td>
+                            <td>{{transaction.beneficiaryDetails}}</td>
+                            <td>{{transaction.transactionDate}}</td>
+                        </tr>
+                        </table>
+                    </div>
+                    <div ng-if="isWalletNumberVerified && !proceedToBankTransaction">
+                        <button type = "button" id = "checkbalance" ng-click="checkMpesaBalance()" has-permission='CHECK_MPESABALANCE'>checkBalance</button>
+                        <table border = "3">
+                            <tr>
+                                <td>Response Code</td>
+                                <td>Response Message</td>
+                                <td>Available Balance</td>
+                                <td>Ledger Balance</td>
+                            </tr>
+                            <tr>
+                                <td>{{balanceDetails.responseCode}}</td>
+                                <td>{{balanceDetails.responseMessage}}</td>
+                                <td>{{balanceDetails.availableBalance}}</td>
+                                <td>{{balanceDetails.ledgerBalance}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div ng-if="isWalletNumberVerified && !proceedToBankTransaction">
+                        <button type = "button" id = "proceedtobanktransaction" ng-click="proceedtobanktransaction()" has-permission='PROCEED_BANKTRANSACTION'>Proceed For Bank Transfer</button>
+                    </div>
+                    <div ng-if = "proceedToWalletBankTransaction">
+                        <table border="3">
+                            <tr>
+                                <td>
+                                    <label>Enter Beneficiary Account</label>
+                                </td>
+                                <td>
+                                    <input ng-disabled="freezTransactionDetails" type = "username" id = "beneficiaryAccount" ng-model="formdata.beneficiaryAccount"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Enter Amount of transfer</label>
+                                </td>
+                                <td>
+                                    <input ng-disabled="freezTransactionDetails" type = "username" id = "amount" ng-model="formdata.amount"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Enter Provider ID</label>
+                                </td>
+                                <td>
+                                    <input ng-disabled="freezTransactionDetails" type="username" id = "providerID" ng-model="formdata.providerID" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Enter Narration</label>
+                                </td>
+                                <td>
+                                    <input ng-disabled="freezTransactionDetails" type="username" id = "narration" ng-model="formdata.narration"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label>Enter Sender Name</label>
+                                </td>
+                                <td>
+                                    <input ng-disabled="freezTransactionDetails" type="username" id = "senderName" ng-model="formdata.senderName">
+                                </td>
+                            </tr>
+                        <label></label>
+                        </table>
+                        <button ng-disabled="freezTransactionDetails" type = "button" id = "makebanktransaction" ng-click="doMpesaBankTransaction()" has-permission="DO_MPESABANKTRANSACTION">SUBMIT</button>
+                    </div>
+                    <div ng-if="isWalletNumberVerified && freezTransactionDetails">
+                        <table border = "3">
+                        <tr>
+                            <td>Response Code</td>
+                            <td>Response Message</td>
+                            <td>RRN</td>
+                            <td>Fee</td>
+                            <td>Reference</td>
+                            <td>Beneficiary Details</td>
+                        </tr>
+                        <tr>
+                            <td>{{transactionDetails.responseCode}}</td>
+                            <td>{{transactionDetails.responseMessage}}</td>
+                            <td>{{transactionDetails.rrn}}</td>
+                            <td>{{transactionDetails.fee}}</td>
+                            <td>{{transactionDetails.reference}}</td>
+                            <td>{{transactionDetails.beneficiaryDetails}}</td>
+                        </tr>
+                        </table>
+                        <button type = "back" id = "back" ng-click="goBack()">BACK</button>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+</div>

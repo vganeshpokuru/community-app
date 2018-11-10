@@ -917,6 +917,9 @@
             .when('/surveys/add',{
                 templateUrl: 'views/surveys/createsurvey.html'
             })
+            .when('/mpesa',{
+                templateUrl: 'views/organization/mpesa/mpesahome.html'
+            })
         ;
         $locationProvider.html5Mode(false);
     };

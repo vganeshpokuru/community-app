@@ -118,6 +118,7 @@ define(['Q', 'underscore', 'mifosX'], function (Q) {
             'organization/ViewPaymentTypeController',
             'organization/CreatePaymentTypeController',
             'organization/EditPaymentTypeController',
+            'organization/mpesa/MpesaHomeController',
             'accounting/provisioning/CreateProvisoningEntriesController',
             'accounting/provisioning/ViewProvisioningEntryController',
             'accounting/provisioning/ViewAllProvisoningEntriesController',
