@@ -649,6 +649,9 @@
                     mpesaVerifyResource: defineResource(apiVer + "/mpesatransactions/verify",{},{
                         verify: {method: 'POST',params:{}}
                     }),
+                    mpesaBankResource: defineResource(apiVer + "/mpesatransactions/bankdetails",{},{
+                        getBankDetails: {method: 'GET',params:{}, isArray : true}
+                    }),
                     mpesaMiniStatementResource: defineResource(apiVer + "/mpesatransactions/ministatement",{},{
                         getMiniStatement: {method: 'POST',params:{}, isArray : true}
                     }),

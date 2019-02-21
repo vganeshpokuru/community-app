@@ -2,17 +2,43 @@
     mifosX.controllers = _.extend(module, {
         MpesaHomeController: function (scope, routeParams, route, location, resourceFactory, http, $uibModal, API_VERSION, $rootScope, Upload) {
             scope.isWalletNumberVerified = false;
+            scope.isMobileNumberVerified = false;
+            scope.isGeneratedStringVerified = false;
             scope.proceedToBankTransaction = false;
             scope.ministatement = [{}];
             scope.balanceDetails = {};
             scope.proceedToWalletBankTransaction = false;
             scope.transactionDetails = {};
             scope.freezTransactionDetails = false;
+            scope.bankDetails = [];
+            scope.responseDataSaved;
+            scope.getbankdetails = function(){
+              resourceFactory.mpesaBankResource.getBankDetails({},{},function (data) {
+                  scope.bankDetails = data;
+                 alert(data);
+              });
+            };
             scope.verifympesanumber = function(){
                 scope.isWalletNumberVerified = false;
+                scope.isMobileNumberVerified = false;
                 resourceFactory.mpesaVerifyResource.verify({},this.formdata,function(data){
-                    scope.isWalletNumberVerified = data.isVerified;
+                    scope.isWalletNumberVerified = data.isWalletVerified;
+                    scope.isMobileNumberVerified = data.isMobileVerified;
+                    scope.responseDataSaved = data.generateString;
                 });
+            };
+            scope.ResetAllVariables = function(){
+                scope.isWalletNumberVerified = false;
+                scope.isMobileNumberVerified = false;
+                scope.isGeneratedStringVerified = false;
+                scope.proceedToBankTransaction = false;
+                scope.proceedToWalletBankTransaction = false;
+                scope.freezTransactionDetails = false;
+            };
+            scope.verifygeneratedString = function(){
+                if(this.formdata.generatedString == scope.responseDataSaved){
+                    scope.isGeneratedStringVerified = true;
+                }
             };
             scope.getMpesaStatement = function(){
                 scope.ministatement = [{}];
@@ -28,6 +54,7 @@
             };
             scope.proceedtobanktransaction = function() {
                 scope.proceedToWalletBankTransaction = true;
+                scope.getbankdetails();
             };
             scope.doMpesaBankTransaction = function(){
                 scope.freezTransactionDetails = true;

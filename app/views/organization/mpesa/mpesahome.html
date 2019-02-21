@@ -12,14 +12,24 @@
             <form name="mpesaform" novalidate="" class="form-horizontal" ng-controller="MpesaHomeController">
                 <api-validate></api-validate>
                 <fieldset>
-                    <div ng-if="!isWalletNumberVerified && !proceedToBankTransaction">
+                    <div ng-if="!isWalletNumberVerified && !isMobileNumberVerified && !proceedToBankTransaction && !isGeneratedStringVerified">
                     <label class="control-label col-sm-2">Enter Mpesa Wallet Number</label>
                     <div class="col-sm-3">
                         <input type="password" id = "walletnumber" ng-model="formdata.walletNumber" class = "form-control">
                     </div>
-                    <button type = "button" id = "checkwalletnumber" ng-click="verifympesanumber()" has-permission='VALIDATE_MPESA'>Check</button>
+                    <label class="control-label col-sm-2">Enter Mpesa Mobile Number</label>
+                    <div class="col-sm-3">
+                       <input type="password" id = "mobieNumber" ng-model="formdata.mobileNumber" class = "form-control">
                     </div>
-                    <div ng-if="isWalletNumberVerified && !proceedToBankTransaction">
+                    <button type = "button" id = "checkwalletnumber" ng-click="verifympesanumber()" has-permission='VALIDATE_MPESA'>Get OTP</button>
+                    </div>
+                    <div ng-if="isWalletNumberVerified && isMobileNumberVerified && !proceedToBankTransaction && !isGeneratedStringVerified">
+                        <label class="control-label col-sm-2">Enter OTP Recieved</label>
+                        <input type="password" id = "otp" ng-model="formdata.generatedString" class = "form-control">
+                        <button type = "button" id = "checkwalletnumber" ng-click="verifygeneratedString()" has-permission='VALIDATE_MPESA_OTP'>check</button>
+                        <button type = "button" id = "checkwalletnumber" ng-click="ResetAllVariables()" has-permission='RESEND_MPESA_OTP'>RESEND OTP</button>
+                    </div>
+                    <div ng-if="isWalletNumberVerified && isMobileNumberVerified && !proceedToBankTransaction && isGeneratedStringVerified">
                         <button type = "button" id = "checkministatement" ng-click="getMpesaStatement()" has-permission='READ_MPESAMINISTATEMENT'>View Mini Statement</button>
                         <table border="3">
                         <tr>
@@ -48,7 +58,7 @@
                         </tr>
                         </table>
                     </div>
-                    <div ng-if="isWalletNumberVerified && !proceedToBankTransaction">
+                    <div ng-if="isWalletNumberVerified && isMobileNumberVerified && !proceedToBankTransaction && isGeneratedStringVerified">
                         <button type = "button" id = "checkbalance" ng-click="checkMpesaBalance()" has-permission='CHECK_MPESABALANCE'>checkBalance</button>
                         <table border = "3">
                             <tr>
@@ -65,7 +75,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div ng-if="isWalletNumberVerified && !proceedToBankTransaction">
+                    <div ng-if="isWalletNumberVerified && isMobileNumberVerified && !proceedToBankTransaction && isGeneratedStringVerified">
                         <button type = "button" id = "proceedtobanktransaction" ng-click="proceedtobanktransaction()" has-permission='PROCEED_BANKTRANSACTION'>Proceed For Bank Transfer</button>
                     </div>
                     <div ng-if = "proceedToWalletBankTransaction">
@@ -91,7 +101,7 @@
                                     <label>Enter Provider ID</label>
                                 </td>
                                 <td>
-                                    <input ng-disabled="freezTransactionDetails" type="username" id = "providerID" ng-model="formdata.providerID" />
+                                    <select chosen = "bankDetails" id = "bankid" ng-model="formdata.providerID" class="form-control" ng-options="bank.bankId as bank.bankName for bank in bankDetails" value="{{bank.bankId}}"></select>
                                 </td>
                             </tr>
                             <tr>
@@ -114,7 +124,7 @@
                         </table>
                         <button ng-disabled="freezTransactionDetails" type = "button" id = "makebanktransaction" ng-click="doMpesaBankTransaction()" has-permission="DO_MPESABANKTRANSACTION">SUBMIT</button>
                     </div>
-                    <div ng-if="isWalletNumberVerified && freezTransactionDetails">
+                    <div ng-if="isWalletNumberVerified && isMobileNumberVerified && freezTransactionDetails && isGeneratedStringVerified">
                         <table border = "3">
                         <tr>
                             <td>Response Code</td>
