@@ -15,7 +15,6 @@
             scope.getbankdetails = function(){
               resourceFactory.mpesaBankResource.getBankDetails({},{},function (data) {
                   scope.bankDetails = data;
-                 alert(data);
               });
             };
             scope.verifympesanumber = function(){
