@@ -6,7 +6,7 @@
         var host = "";
         var portNumber = "";
         //accessing from openmf server
-        if (mainLink.hostname.indexOf('openmf.org') >= 0) {
+        if (mainLink.hostname.indexOf('fiter.io') >= 0) {
             var hostname = window.location.hostname;
             console.log('hostname---' + hostname);
             domains = hostname.split('.');
