@@ -3235,6 +3235,8 @@
   "chargeCalculationType.percent.of.disbursement.amount": "% Disbursement Amount",
   "chargeCalculationType.flat.of.amount.loan": "Flat Loan Amount",
   "chargeCalculationType.flat.percent.of.amount": "Flat % Approved Amount",
+  "chargeCalculationType.flat.percent.of.amount.and.interest": "Flat % Approved Amount and Interest",
+  "chargeCalculationType.flat.percent.of.interest": "Flat % Interest Amount",
   "chargepaymentmode.regular": "Regular Mode",
   "chargepaymentmode.accounttransfer": "Account Transfer Mode",
   "validation.msg.charge.name.cannot.be.blank": "Name cannot be blank.",
