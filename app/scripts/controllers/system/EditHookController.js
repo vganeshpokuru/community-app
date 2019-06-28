@@ -55,13 +55,13 @@
                 scope.ugdTemplate = [];
                 scope.ugdTemplates = [];
                 for (var i = 0; i < scope.allUgdTemplates.length; ++i) {
-                    if (scope.allUgdTemplates[i].entity === name.toLowerCase() &&
+                    if ((scope.allUgdTemplates[i].entity === name.toLowerCase() || (scope.allUgdTemplates[i].entity === "job" && name === "SCHEDULER") || (scope.allUgdTemplates[i].entity === "job" && name === "REPORTMAILINGJOB")) &&
                         scope.allUgdTemplates[i].type === "SMS") {
                         scope.ugdTemplates.push({name: scope.allUgdTemplates[i].name, id: scope.allUgdTemplates[i].id});
                     }
                 }
                 scope.showUgdTemplatesDropdown = scope.ugdTemplateEntities.filter(function(entity) {
-                    return entity.name === name.toLowerCase() &&
+                    return (scope.allUgdTemplates[i].entity === name.toLowerCase() || (scope.allUgdTemplates[i].entity === "job" && name === "SCHEDULER") || (scope.allUgdTemplates[i].entity === "job" && name === "REPORTMAILINGJOB")) &&
                     scope.template.name === "SMS Bridge" &&
                     scope.ugdTemplates.length > 0;
                 });

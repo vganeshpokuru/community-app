@@ -48,6 +48,8 @@
                     scope.clientKeys();
                 } else if (data.template.entity == "loan") {
                     scope.loanKeys();
+                }else if(data.template.entity == "job" || data.template.entity == "JOB"){
+                    scope.jobkeys();
                 }
                 CKEDITOR.instances.templateeditor.insertHtml(data.template.text);
             });
@@ -63,6 +65,16 @@
                     CKEDITOR.instances.templateeditor.setData('');
                 }
             }
+
+            scope.jobkeys = function () {
+                scope.templateKeys = ["{{job.jobId}}", "{{job.nextRunTime}}", "{{job.displayName}}",
+                    "{{job.active}}", "{{job.currentlyRunning}}", "{{job.cronExpression}}", "{{job.lastRunHistory.version}}", "{{job.lastRunHistory.jobRunStartTime}}", "{{job.lastRunHistory.jobRunEndTime}}", "{{job.lastRunHistory.status}}", "{{job.lastRunHistory.triggerType}}"];
+                scope.templateEntity = [
+                    {"entityName": "Job",
+                        "templateKeys": scope.templateKeys}
+                ];
+                CKEDITOR.instances.templateeditor.setData('');
+            };
 
             scope.loanKeys = function () {
                 scope.loanTemplateKeys = ["{{loan.accountNo}}", "{{loan.status.value}}", "{{loan.loanProductId}}",
@@ -88,7 +100,7 @@
             }
 
             scope.entityChange = function (entityId) {
-                if (entityId != 0) {
+                if (entityId == 1) {
                     scope.mappers.splice(0, 1, {
                         mappersorder: 0,
                         mapperskey: "loan",
@@ -97,7 +109,7 @@
                     });
                     scope.loanKeys();
                     scope.templateKeyEntity = "Loan";
-                } else {
+                } else if(entityId == 0){
                     scope.templateKeyEntity = "Client";
                     scope.mappers.splice(0, 1, {
                         mappersorder: 0,
@@ -106,8 +118,17 @@
                         defaultAddIcon: 'true'
                     });
                     scope.clientKeys();
+                } else if(entityId == 2){
+                    scope.templateKeyEntity = "Job";
+                    scope.mappers.splice(0, 1, {
+                        mappersorder: 0,
+                        mapperskey: "job",
+                        mappersvalue: "jobs/{{resourceId}}?tenantIdentifier=" + $rootScope.tenantIdentifier,
+                        defaultAddIcon: 'true'
+                    });
+                    scope.jobkeys();
                 }
-            }
+            };
 
             scope.templateKeySelected = function (templateKey) {
                 CKEDITOR.instances.templateeditor.insertText(templateKey);
